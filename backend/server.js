@@ -30,6 +30,15 @@ app.get('/', (req, res) => {
   }
 });
 
+const escapeHtml = (str) => {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+};
+
 app.get('/test/:id', (req, res) => {
   const { id } = req.params;
   const title = req.query.title || `Test Title - ${id}`;
@@ -38,32 +47,38 @@ app.get('/test/:id', (req, res) => {
   const width = req.query.width || '1200';
   const height = req.query.height || '630';
 
+  const escTitle = escapeHtml(title);
+  const escDesc = escapeHtml(description);
+  const escImage = escapeHtml(image);
+  const escWidth = escapeHtml(width);
+  const escHeight = escapeHtml(height);
+
   res.send(`
     <!DOCTYPE html>
     <html>
     <head>
-      <title>${title}</title>
+      <title>${escTitle}</title>
       <meta charset="utf-8">
-      <meta name="description" content="${description}" />
-      <meta property="og:title" content="${title}" />
-      <meta property="og:description" content="${description}" />
-      <meta property="og:image" content="${image}" />
-      <meta property="og:image:secure_url" content="${image}" />
-      <meta property="og:image:width" content="${width}" />
-      <meta property="og:image:height" content="${height}" />
+      <meta name="description" content="${escDesc}" />
+      <meta property="og:title" content="${escTitle}" />
+      <meta property="og:description" content="${escDesc}" />
+      <meta property="og:image" content="${escImage}" />
+      <meta property="og:image:secure_url" content="${escImage}" />
+      <meta property="og:image:width" content="${escWidth}" />
+      <meta property="og:image:height" content="${escHeight}" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="${title}" />
-      <meta name="twitter:description" content="${description}" />
-      <meta name="twitter:image" content="${image}" />
+      <meta name="twitter:title" content="${escTitle}" />
+      <meta name="twitter:description" content="${escDesc}" />
+      <meta name="twitter:image" content="${escImage}" />
     </head>
     <body>
       <h1>Dynamic Meta Test Playground</h1>
-      <p>ID: ${id}</p>
-      <p>Title: ${title}</p>
-      <p>Description: ${description}</p>
-      <p>Image: <a href="${image}">${image}</a></p>
-      <p>Dimensions: ${width}x${height}</p>
+      <p>ID: ${escapeHtml(id)}</p>
+      <p>Title: ${escTitle}</p>
+      <p>Description: ${escDesc}</p>
+      <p>Image: <a href="${escImage}">${escImage}</a></p>
+      <p>Dimensions: ${escWidth}x${escHeight}</p>
     </body>
     </html>
   `);
