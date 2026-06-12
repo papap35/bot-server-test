@@ -43,7 +43,12 @@ app.get('/test/:id', (req, res) => {
   const { id } = req.params;
   const title = req.query.title || `Test Title - ${id}`;
   const description = req.query.description || `Test Description for ID ${id}`;
-  const image = req.query.image || 'https://via.placeholder.com/1200x630.png';
+  
+  const host = req.get('host');
+  const protocol = req.headers['x-forwarded-proto'] || (req.protocol === 'http' && host.includes('localhost') ? 'http' : 'https');
+  const defaultImage = `${protocol}://${host}/placeholder.png`;
+  
+  const image = req.query.image || defaultImage;
   const width = req.query.width || '1200';
   const height = req.query.height || '630';
 
