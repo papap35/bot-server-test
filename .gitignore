@@ -17,5 +17,9 @@ ehthumbs.db
 # Vercel deployment folder
 .vercel/
 
+# Build outputs
+dist/
+**/dist/
+
 # AI Assistant Artifact Metadata
 *.metadata.json
