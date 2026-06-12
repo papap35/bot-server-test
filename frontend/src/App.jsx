@@ -149,14 +149,12 @@ function App() {
             <div className="messenger-chat">
               <div className="chat-bubble">
                 <div className="bubble-image-wrapper">
-                  {image ? (
-                    <img src={image} className="bubble-image" alt="Preview Image" onError={(e)=>{e.target.style.display='none';}} />
-                  ) : (
-                    <div className="bubble-image-placeholder">
-                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                      <span style={{ fontSize: '0.8rem', color: '#4b5563' }}>無預覽圖</span>
-                    </div>
-                  )}
+                  <img
+                    src={image || '/placeholder.png'}
+                    className="bubble-image"
+                    alt="Preview Image"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
                 </div>
                 <div className="bubble-info">
                   <div className="bubble-domain">{domainName}</div>
