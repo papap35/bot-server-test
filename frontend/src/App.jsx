@@ -8,6 +8,7 @@ function App() {
   const [image, setImage] = useState('');
   const [width, setWidth] = useState(1200);
   const [height, setHeight] = useState(630);
+  const [fbAppId, setFbAppId] = useState('');
   const [copied, setCopied] = useState(false);
 
   // Initialize baseUrl and generate first random ID
@@ -30,6 +31,7 @@ function App() {
       if (image) url.searchParams.set('image', image);
       if (width && width !== 1200) url.searchParams.set('width', width.toString());
       if (height && height !== 630) url.searchParams.set('height', height.toString());
+      if (fbAppId) url.searchParams.set('fb_app_id', fbAppId);
       return url.toString();
     } catch (e) {
       return '';
@@ -137,6 +139,17 @@ function App() {
                 value={height}
                 onChange={(e) => setHeight(Number(e.target.value))}
                 placeholder="630"
+              />
+            </div>
+
+            <div className="form-group full-width">
+              <label htmlFor="fbAppId">Facebook App ID (fb:app_id - 選填)</label>
+              <input
+                type="text"
+                id="fbAppId"
+                value={fbAppId}
+                onChange={(e) => setFbAppId(e.target.value)}
+                placeholder="例如: 1234567890 (供 FB 分享成效追蹤使用，可消除偵錯工具警告)"
               />
             </div>
           </div>
