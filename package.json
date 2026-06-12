@@ -1,0 +1,14 @@
+{
+  "name": "fb-messenger-preview-playground-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "start:backend": "cd backend && yarn start",
+    "dev:frontend": "cd frontend && yarn dev",
+    "build:frontend": "cd frontend && yarn build"
+  }
+}

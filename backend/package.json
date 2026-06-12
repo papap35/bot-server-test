@@ -1,0 +1,12 @@
+{
+  "name": "fb-messenger-preview-playground",
+  "version": "1.0.0",
+  "description": "Standalone Node.js application to test dynamic Open Graph and Twitter Card metadata rendering.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
