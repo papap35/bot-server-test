@@ -51,12 +51,15 @@ app.get('/test/:id', (req, res) => {
   const image = req.query.image || defaultImage;
   const width = req.query.width || '1200';
   const height = req.query.height || '630';
+  const fbAppId = req.query.fb_app_id || '';
 
   const escTitle = escapeHtml(title);
   const escDesc = escapeHtml(description);
   const escImage = escapeHtml(image);
   const escWidth = escapeHtml(width);
   const escHeight = escapeHtml(height);
+  const escFbAppId = fbAppId ? escapeHtml(fbAppId) : '';
+  const escUrl = escapeHtml(`${protocol}://${host}${req.originalUrl}`);
 
   res.send(`
     <!DOCTYPE html>
@@ -65,6 +68,8 @@ app.get('/test/:id', (req, res) => {
       <title>${escTitle}</title>
       <meta charset="utf-8">
       <meta name="description" content="${escDesc}" />
+      <meta property="og:url" content="${escUrl}" />
+      ${escFbAppId ? `<meta property="fb:app_id" content="${escFbAppId}" />` : ''}
       <meta property="og:title" content="${escTitle}" />
       <meta property="og:description" content="${escDesc}" />
       <meta property="og:image" content="${escImage}" />
